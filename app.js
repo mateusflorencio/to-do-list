@@ -1,5 +1,6 @@
 import express from "express";
 import routerCheckList from "./src/routes/checklist.js"
+import "./config/database.js"
 
 const app = express();
 app.use(express.json());

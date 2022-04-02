@@ -1,4 +1,5 @@
 import express from "express";
+import Checklist from "../model/checklist.js";
 
 const routerCheckList = express.Router();
 
@@ -11,9 +12,20 @@ routerCheckList.get("/:id", (req, res) => {
     console.log(req.params.id);
 });
 
-routerCheckList.post("/", (req, res) => {
-    console.log(req.body);
-    res.status(201).send(req.body);
+routerCheckList.post("/", async (req, res) => {
+    let {
+        name
+    } = req.body;
+    console.log(req.body)
+    try {
+        let checkList = await Checklist.create({
+            name
+        });
+        res.status(200).json(checkList);
+    } catch (error) {
+        res.status(422).json(error.name)
+    };
+
 });
 
 routerCheckList.put("/:id", (req, res) => {
